@@ -16,25 +16,19 @@ type PersonType = {
 };
 
 const countFilledValues = (obj: PersonType): number => {
-  //для подсчёта пустых значений
-  let emptyKeys = 0;
 
-  //проходимся по ключам объекта
-  for (const key in obj) {
-    //здесь получаем значение ключа
-    const value = obj[key as keyof PersonType];
-    // проверка что значение не null не undefined и то что это не пустая строка
-    if (
-      value === null ||
-      value === undefined ||
-      //typeof нужен для того чтобы метод trim применялся только к строкам
-      (typeof value === "string" && value.trim() === "")
-    ) {
-      emptyKeys++;
-    }
-  }
+  let values = Object.values(obj);
 
-  return emptyKeys;
+ //console.log(values);
+
+  let emptyValues = values.filter(
+      (value) => value === null || value === undefined ||
+          (typeof value === "string" && value.trim() === "")
+  );
+
+  return emptyValues.length;
 };
+
+
 
 console.log(countFilledValues(Person));
